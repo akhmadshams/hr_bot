@@ -15,9 +15,7 @@ def create_inline_keyboard(buttons):
 @dp.message_handler(text='🆓 Bo\'sh ish o\'rinlari')
 async def edit_work(message: Message):
     data = db.read_work()
-    print(data)
     keyboard = create_inline_keyboard(data)
-    print(keyboard)
     await message.reply("Tugmalardan birini tanlang:", reply_markup=keyboard)
 
 
