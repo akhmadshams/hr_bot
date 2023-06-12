@@ -29,7 +29,6 @@ def delete_workplace_from_db(title):
 @dp.message_handler(text='➖ Ishni tahrirlash')
 async def start(message: types.Message):
     titles = get_titles_from_db()
-
     # ReplyKeyboardMarkup yaratish
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     for title in titles:
