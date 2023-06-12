@@ -10,6 +10,15 @@ confirmation_keyboard = InlineKeyboardMarkup(
 )
 
 
+work_callback = CallbackData("work_post", "actions")
+confirmation_work = InlineKeyboardMarkup(
+    inline_keyboard=[[
+        InlineKeyboardButton(text="🆗 Tasdiqlash", callback_data=post_callback.new(action="post_work")),
+        InlineKeyboardButton(text="❌ Bekor qilish", callback_data=post_callback.new(action="cancel")),
+    ]]
+)
+
+
 edit_key = InlineKeyboardMarkup(
     inline_keyboard=[[
         InlineKeyboardButton(text="🗑 Delete", callback_data='delete'),
