@@ -15,8 +15,13 @@ def create_inline_keyboard(buttons):
 @dp.message_handler(text='🆓 Bo\'sh ish o\'rinlari')
 async def edit_work(message: Message):
     data = db.read_work()
-    keyboard = create_inline_keyboard(data)
-    await message.reply("Tugmalardan birini tanlang:", reply_markup=keyboard)
+    if not data:
+        await message.answer("<b>Hozircha bo\'sh ish o\'rinlari mavjud emas</b>")
+    elif data:
+        keyboard = create_inline_keyboard(data)
+        await message.answer("<b>Hozirda bor bo\'sh ish o\'rinlari ro\'yxati</b>", reply_markup=keyboard)
+    else:
+        await message.answer("<b>Ma\'lumot mavjud emas</b>")
 
 
 @dp.callback_query_handler()
@@ -38,9 +43,3 @@ async def callback_handler(callback_query: CallbackQuery):
             return
     await bot.send_message(chat_id=chat_id, text="Malumot topilmadi.")
 
-
-@dp.message_handler(text='💼 Ish o\'rinlari')
-async def workplace(message: Message):
-    text = "<b>Siz barcha ish o\'rinlari haqida quyidagi link orqali to\'liq ma\'lumot olishingiz mumkin</b>\n\n"
-    text += "t.me/Kanal_linki"
-    await message.answer(text)
