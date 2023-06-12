@@ -186,7 +186,7 @@ async def answer_add(message: Message, state: FSMContext):
 async def approve_post(call: CallbackQuery, state: FSMContext):
     await call.answer("Habaringiz yuborildi!", show_alert=True)
     message = await call.message.edit_reply_markup()
-    await message.send_copy(-1001966008238)
+    await message.send_copy(-1001448234708)
 
 
 
