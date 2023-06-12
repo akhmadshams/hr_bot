@@ -125,7 +125,7 @@ async def answer_work(message: Message, state: FSMContext):
         }
     )
 
-    await message.reply("🔀 Siz qaysi ishda ishlamoqchisiz", reply_markup=keyboard)
+    await message.answer("🔀 Siz qaysi ishda ishlamoqchisiz", reply_markup=keyboard)
     await PersonalState.next()
 
 

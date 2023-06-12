@@ -40,3 +40,8 @@ async def callback_handler(callback_query: CallbackQuery):
     await bot.send_message(chat_id=chat_id, text="Malumot topilmadi.")
 
 
+@dp.message_handler(text='💼 Ish o\'rinlari')
+async def workplace(message: Message):
+    text = "<b>Siz barcha ish o\'rinlari haqida quyidagi link orqali to\'liq ma\'lumot olishingiz mumkin</b>\n\n"
+    text += "t.me/Kanal_linki"
+    await message.answer(text)
