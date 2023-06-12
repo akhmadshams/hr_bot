@@ -76,7 +76,7 @@ async def answer_region(message: Message, state: FSMContext):
     await state.update_data(
         {'region':region}
     )
-    await message.answer("<b>🏢 Manzilni toliq kiriting (MFY va Koch nomi)</b>", reply_markup=    back_key)
+    await message.answer("<b>🏢 Manzilni to\'liq kiriting (MFY va Ko\'ch nomi)</b>", reply_markup=back_key)
     await PersonalState.next()
 
 
@@ -108,7 +108,6 @@ def create_keyboard(buttons):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
     for button in buttons:
         name = button[0]  # name nomli ustun qiymati
-        callback_data = name  # callback_data nomi ham name nomiga teng
         keyboard.add(types.KeyboardButton(name))
     return keyboard
 
@@ -124,7 +123,6 @@ async def answer_work(message: Message, state: FSMContext):
             'work': work
         }
     )
-
     await message.answer("🔀 Siz qaysi ishda ishlamoqchisiz", reply_markup=keyboard)
     await PersonalState.next()
 

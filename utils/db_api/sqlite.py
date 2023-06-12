@@ -97,22 +97,26 @@ class Database:
         """
         return self.execute(sql, fetchall=True)
 
+    def delete_work(self, title):
+        self.execute("DELETE FROM Workplace WHERE work_title=?", (title,), commit=True)
 
-    def read_work_title(self):
-        sql = """
-        SELECT work_title FROM Workplace
-        """
-        return self.execute(sql, fetchall=True)
 
-    def read_work_all_data(self):
-        sql = """
-        SELECT id, work_title, image, salary, desciption FROM Workplace
-        """
-        return self.execute(sql, fetchall=True)
+    # def read_work_title(self):
+    #     sql = """
+    #     SELECT work_title FROM Workplace
+    #     """
+    #     return self.execute(sql, fetchall=True)
+    #
+    # def read_work_all_data(self):
+    #     sql = """
+    #     SELECT id, work_title, image, salary, desciption FROM Workplace
+    #     """
+    #     return self.execute(sql, fetchall=True)
 
     def add_worker(self, name, b_date,phone,region,address, degree,work,position,addition):
         sql = """INSERT INTO Anketa(name, b_date, phone,region,address, degree,work,position,addition) VALUES(?,?,?,?,?,?,?,?,?)"""
         self.execute(sql, parameters=(name, b_date, phone, region, address, degree, work, position, addition), commit=True)
+
 
 
 def logger(statement):
