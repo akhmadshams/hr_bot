@@ -6,11 +6,12 @@ from data.config import ADMINS
 from loader import dp, db, bot
 from keyboards.default.admin_key import admin_menu
 from keyboards.default.menu import main_menu
-
 import sqlite3
 from openpyxl import Workbook
 from io import BytesIO
 from datetime import datetime, timedelta
+from datetime import date
+
 
 connection = sqlite3.connect('data/main.db')
 cursor = connection.cursor()
@@ -256,12 +257,13 @@ async def send_ad_to_all(message: types.Message, state=FSMContext):
     await message.answer(f"Faol foydalanuvchilar soni: {jonlilar}")
 
 
-
-@dp.message_handler(text="/allusers", user_id=ADMINS)
+@dp.message_handler(text="🔄 Foydalanuvchilar soni", user_id=ADMINS)
 async def get_all_users(message: types.Message):
-    users = db.select_all_users()
-    print(users[0][0])
-    await message.answer(users)
+    today = date.today()
+    current_time = today.strftime("%B %d, %Y")
+    users = db.count_users()
+    text = f"Jami foydalanuvchilar soni<b> {users[0]} </b> ta  - <b>{current_time}</b> holatiga"
+    await message.answer(text)
 
 
 @dp.message_handler(text="/cleandb", user_id=ADMINS)

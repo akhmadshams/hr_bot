@@ -101,7 +101,7 @@ async def salary_answer(message: Message, state: FSMContext):
 async def work_add(call: CallbackQuery, state: FSMContext):
     await call.answer("Habaringiz yuborildi!", show_alert=True)
     message = await call.message.edit_reply_markup()
-    await message.send_copy(-1001448234708)
+    await message.answer('Ish joylandi')
 
 
 
