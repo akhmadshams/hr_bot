@@ -7,9 +7,6 @@ main_menu = ReplyKeyboardMarkup(
             KeyboardButton(text="🆓 Bo\'sh ish o\'rinlari")
         ],
         [
-            KeyboardButton(text="💼 Ish o\'rinlari")
-        ],
-        [
             KeyboardButton(text="📍️️️️️️ Location")
         ],
         [

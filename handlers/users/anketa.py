@@ -127,8 +127,6 @@ async def answer_work(message: Message, state: FSMContext):
     await PersonalState.next()
 
 
-
-
 @dp.message_handler(state=PersonalState.position)
 async def answer_position(message: Message, state: FSMContext):
     position = message.text
@@ -175,9 +173,8 @@ async def answer_add(message: Message, state: FSMContext):
     text += f"<b>👨‍🎓 Ma\'lumoti: {degree}\n\n</b>"
     text += f"<b>💼 Eski ish joyi: {work}\n\n</b>"
     text += f"<b>🔀 Positsiyasi: {position}\n\n</b>"
-    if addition != 'O\'tkazib yuborish':
+    if addition != '⏭ O\'tkazib yuborish':
         text += f"<b>🔅 Qoshimcha: {addition}\n\n</b>"
-
     await message.answer(text, reply_markup=confirmation_keyboard)
     await PersonalState.next()
 
@@ -186,7 +183,7 @@ async def answer_add(message: Message, state: FSMContext):
 async def approve_post(call: CallbackQuery, state: FSMContext):
     await call.answer("Habaringiz yuborildi!", show_alert=True)
     message = await call.message.edit_reply_markup()
-    await message.send_copy(-1001448234708)
+    await message.send_copy(-1001966008238)
 
 
 

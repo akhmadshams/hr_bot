@@ -90,7 +90,7 @@ work_key = ReplyKeyboardMarkup(
 addition_key = ReplyKeyboardMarkup(
     [
         [
-            KeyboardButton(text="O\'tkazib yuborish")
+            KeyboardButton(text="⏭ O\'tkazib yuborish")
         ],
         [
             KeyboardButton(text='🚫️️️️️️ Bekor qilish')

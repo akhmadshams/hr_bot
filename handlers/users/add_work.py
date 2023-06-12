@@ -103,6 +103,19 @@ async def work_add(call: CallbackQuery, state: FSMContext):
     message = await call.message.edit_reply_markup()
     await message.answer('Ish joylandi')
 
+@dp.callback_query_handler(post_callback.filter(action="cancel"))
+async def cancel_post(call: CallbackQuery, state: FSMContext):
+    await state.finish()
+    await call.answer("Habaringiz rad etildi!", show_alert=True)
+    await call.message.edit_reply_markup()
+    await call.message.answer("Habaringiz rad etildi!")
+
+
+@dp.callback_query_handler(post_callback.filter(action="cancel"), user_id=ADMINS)
+async def decline_post(call: CallbackQuery):
+    await call.answer("Post rad etildi.", show_alert=True)
+    await call.message.edit_reply_markup()
+
 
 
 @dp.message_handler(text="🔙 Ortga", user_id=ADMINS)
