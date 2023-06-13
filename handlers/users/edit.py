@@ -9,7 +9,6 @@ def get_titles_from_db():
     return titles
 
 
-# Workplace jadvalidan tanlangan malumotni o'chirish
 
 def delete_workplace_from_db(title):
     db.delete_work(title)
