@@ -11,6 +11,7 @@ from states.personal import PersonalState
 from states.newpost import NewPost
 from keyboards.default.anketa_key import back_key,phone_key,region_key,degree_key,work_key,addition_key
 from keyboards.default.menu import main_menu
+import datetime
 conn = sqlite3.connect('data/main.db')
 cursor = conn.cursor()
 
@@ -107,7 +108,7 @@ async def answer_degree(message: Message, state: FSMContext):
 def create_keyboard(buttons):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
     for button in buttons:
-        name = button[0]  # name nomli ustun qiymati
+        name = button  # name nomli ustun qiymati
         keyboard.add(types.KeyboardButton(name))
     return keyboard
 
@@ -116,7 +117,7 @@ def create_keyboard(buttons):
 @dp.message_handler(state=PersonalState.old_work)
 async def answer_work(message: Message, state: FSMContext):
     work = message.text
-    data = db.read_work()
+    data = await db.read_work()
     keyboard = create_keyboard(data)
     await state.update_data(
         {
@@ -160,7 +161,8 @@ async def answer_add(message: Message, state: FSMContext):
     work = data.get('work')
     position = data.get('position')
     addition = data.get('addition')
-    db.add_worker(name=name, b_date=b_date, phone=phone, region=region, address=address, degree=degree, work=work, position=position, addition=addition)
+    await db.add_worker(full_name=name, b_date=b_date, phone=phone, region=region, address=address, education=degree, old_work=work, position=position, additions=addition, create_at=datetime.datetime.now())
+
     text = "<b>Quyidagi ma\'lumotlar qabul qilindi 👇</b>\n\n"
     if mention:
         text += f"<b>🙎‍♂ F.I.SH: {name} - {mention}\n\n</b>"

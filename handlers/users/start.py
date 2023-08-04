@@ -1,4 +1,6 @@
 import sqlite3
+
+import asyncpg
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
@@ -8,24 +10,27 @@ from loader import dp, db, bot
 from utils.misc.get_distance import choose_shortest
 from keyboards.default.menu import location_key
 from keyboards.default.menu import main_menu
+import datetime
 
 
 
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
-    name = message.from_user.full_name
-    # Foydalanuvchini bazaga qo'shamiz
     try:
-        db.add_user(id=message.from_user.id,
-                    name=name)
-    except sqlite3.IntegrityError as err:
-        await bot.send_message(chat_id=ADMINS[0], text=err)
+        user = await db.add_user(
+            user_id=message.from_user.id,
+            name=message.from_user.full_name,
+            user_name=message.from_user.username,
+        )
+    except asyncpg.exceptions.UniqueViolationError:
+        user = await db.select_user(user_id=message.from_user.id)
 
-    await message.answer("Xush kelibsiz!", reply_markup=main_menu)
-    # Adminga xabar beramiz
-    count = db.count_users()[0]
-    msg = f"{message.from_user.full_name} bazaga qo'shildi.\nBazada {count} ta foydalanuvchi bor."
-    await bot.send_message(chat_id=ADMINS[0], text=msg)
+    await message.answer(
+        f"Assalomu alaykum {message.from_user.full_name} ASMALD Group bo'sh ish o'rinlari uchun anketa to'ldirishingiz mumkin!",
+        reply_markup=main_menu
+    )
+
+
 
 @dp.message_handler(text='📍️️️️️️ Location')
 async def process_balance(message: Message, state: FSMContext):

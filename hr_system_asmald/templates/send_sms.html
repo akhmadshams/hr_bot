@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">{{ staff.full_name }}</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'send_sms' staff_id=staff.id %} ">
+                    {% csrf_token %}
+              <div class="form-group">
+                <label for="inputDescription">Habar matni</label>
+                <textarea id="inputDescription" class="form-control" rows="4" name="habar"></textarea>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <a href="{% url 'staffs' %}" class="btn btn-secondary" >Bekor qilish</a>
+                  <input type="hidden" name="sender" value="{{ staff.id }}">
+                  <input type="submit" value="Yuborish" class="btn btn-success float-right">
+                </div>
+              </div>
+            </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  <!-- /.content-wrapper -->
+
+    </div>
+
+{% endblock %}

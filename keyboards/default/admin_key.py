@@ -31,7 +31,6 @@ work_edit = ReplyKeyboardMarkup(
     [
         [
             KeyboardButton(text='➕ Ish qo\'shish'),
-            KeyboardButton(text='➖ Ishni tahrirlash')
         ],
         [
             KeyboardButton(text="🔙 Ortga")
@@ -39,3 +38,4 @@ work_edit = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+

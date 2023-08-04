@@ -87,12 +87,12 @@ async def salary_answer(message: Message, state: FSMContext):
     title = data.get("title")
     body = data.get('body')
     image = data.get('image')
-    salary = data.get('salary')
-    db.add_work(work_title=title,image=image, desciption=body, salary=salary)
+    # salary = data.get('salary')
+    await db.add_work(work_title=title, image=image, description=body)
     caption = f"<b>{title}\n</b>"
     caption += f"{body}\n\n"
-    caption += f"<b>Ish haqqi: {salary}\n\n</b>"
-    caption += f"Ko\'proq ma\'lumot: @vakansiya_europrint"
+    # caption += f"<b>Ish haqqi: {salary}\n\n</b>"
+    caption += f"Ko\'proq ma\'lumot: @hrfmasmaldgroup"
     await message.answer_photo(photo=image, caption=caption, reply_markup=confirmation_keyboard)
     await WorkState.next()
 

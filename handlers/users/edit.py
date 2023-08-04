@@ -3,31 +3,24 @@ from aiogram import types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from loader import dp, db
 
-def get_titles_from_db():
-    rows = db.read_work()
-    titles = [row[0] for row in rows]
-    return titles
 
+def create_keyboard(buttons):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+    for button in buttons:
+        name = button  # name nomli ustun qiymati
+        keyboard.add(types.KeyboardButton(name))
+    return keyboard
 
-
-def delete_workplace_from_db(title):
-    db.delete_work(title)
-
-
-# /start buyrug'i uchun handler
 @dp.message_handler(text='➖ Ishni tahrirlash')
 async def start(message: types.Message):
-    titles = get_titles_from_db()
-    # ReplyKeyboardMarkup yaratish
-    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-    for title in titles:
-        keyboard.add(KeyboardButton(title))
+    data = await db.read_work()
+    keyboard = create_keyboard(data)
     await message.reply("Ish joylarini tanlang:", reply_markup=keyboard)
 
 @dp.message_handler()
 async def handle_message(message: types.Message):
-    selected_title = message.text
-    delete_workplace_from_db(selected_title)
-    response = f"{selected_title} o'chirildi"
+    title = message.text
+    await db.delete_work(title)
+    response = f"{title} o'chirildi"
     await message.reply(response)
 
