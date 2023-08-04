@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">{{ name }}</h3>
+              </div>
+              <div class="card-body">
+            <form method="POST" action="{% url 'edit_staff' staff_id=form.instance.id %}">
+                  {% csrf_token %}
+
+                <div class="form-group">
+                  <label>Shartnoma raqami</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-solid fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="contract_id" value="{{ staff.contract_id }}" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>F.I.SH  |  {{ name }}</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-solid fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="full_name" value="{{ staff.full_name }}" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Tug'ilgan vaqti | 1998-12-13</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="b_date" value="{{ staff.b_date }}" required>
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <label>Telefon raqami   |  998901234567</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="phone" value="{{ staff.phone }}" required>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label>Manzil</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-solid fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="address" value="{{ staff.address }}" required>
+                  </div>
+                </div>
+
+
+              <label for="department">Department:</label>
+              <select name="department" required class="form-control select2" style="width: 100%;">
+                {% for department in departments %}
+                <option value="{{ department.id }}" {% if department.id == staff.department.id %}selected{% endif %}>{{ department.department_name }}</option>
+                {% endfor %}
+              </select><br>
+
+              <label for="position">Position:</label>
+              <select name="position" required class="form-control select2" style="width: 100%;">
+                {% for position in positions %}
+                <option value="{{ position.id }}" {% if position.id == staff.position.id %}selected{% endif %}>{{ position.position_name}}</option>
+                {% endfor %}
+              </select><br>
+
+               <div class="form-group">
+                  <label>Jinsi</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-solid fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="gender" value="{{ staff.gender }}" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="date_join">Ishga qabul qilingan sana (2023-05-14)</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="date_join" value="{{ staff.date_join }}" required>
+                  </div>
+                </div>
+
+              <div class="form-group">
+                  <label for="comment">Comment</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-comment-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="comment" value="{{ staff.comment }}" required>
+                  </div>
+                </div>
+
+              <label for="status">Status:</label>
+              <input type="checkbox" name="status" {% if staff.status %}checked{% endif %}><br><br>
+              <button class="btn btn-primary start" type="submit">Saqlash</button>
+              </form>
+                <form action="{% url 'delete_staff' staff.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger delete" style="">
+                  <i class="fas fa-trash"></i>
+                  O'chirish
+                </button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </section>
+
+
+<script>
+    const deleteButton = document.querySelector('[data-dz-remove]');
+    deleteButton.addEventListener('click', function() {
+        const staffId = 1;  // Ishchini o'chirish uchun kerakli ishchi ID sini olishingiz kerak
+        const csrfToken = '{{ csrf_token }}';  // CSRF tokenni olishingiz kerak (Django dan olinadi)
+
+        // AJAX so'rovnin yaratilishi
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/delete_staff/');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRFToken', csrfToken);
+
+        // So'rovga ma'lumotlarni joylash va yuborish
+        const data = JSON.stringify({ staff_id: staffId });
+        xhr.send(data);
+
+        // So'rovning javobini qabul qilish
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // O'chirish muvaffaqiyatli bo'lgan holatda kerakli qismlarni yangilash
+                // Masalan, qatorni yashirish yoki sahifani qayta yuklash
+                console.log('Ishchi muvaffaqiyatli o\'chirildi');
+            } else {
+                console.error('Ishchi o\'chirishda xatolik yuz berdi');
+            }
+        };
+    });
+</script>
+
+
+{% endblock content %}

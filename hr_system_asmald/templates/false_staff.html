@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+
+         <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Ishdan ketganlar ro'yxati</h3>
+
+        <div class="card-tools">
+            <form action="{% url 'false_staff' %}" method="GET" class="d-flex">
+            <input class="form-control me-2" type="search" name="q" placeholder="Izlash" aria-label="Search">
+            <button type="submit" class="btn btn-outline-black"><i class="fas fa-search"></i></button>
+                 <button type="button" class="btn btn-tool" title="Collapse">
+                <a href="{% url 'false_data' %}"><i class="fas fa-download"></i></a>
+            </button>
+            </form>
+        </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th style="width: 12%">
+                          F.I.SH
+                      </th>
+                      <th style="width: 12%">
+                          Tug'ilgan san
+                      </th>
+                      <th style="width: 12%">
+                          Tel raqami
+                      </th>
+                      <th>
+                          Manzil
+                      </th>
+                      <th style="width: 12%" class="text-center">
+                          Bo'lim
+                      </th>
+                      <th style="width: 12%" class="text-center">
+                          Positsiya
+                      </th>
+                      <th style="width: 12%" class="text-center">
+                          Ishga qabul vaqti
+                      </th>
+                      <th style="width: 16%" class="text-center">
+                          Comment
+                      </th>
+
+                  </tr>
+              </thead>
+              <tbody>
+              {% for staff in page_obj %}
+                  <tr>
+                      <td>{{ staff.full_name }}</td>
+                      <td>{{ staff.b_date}}</td>
+                      <td>{{ staff.phone }}</td>
+                      <td>{{ staff.address }}</td>
+                      <td>{{ staff.department }}</td>
+                      <td>{{ staff.position }}</td>
+                      <td>{{ staff.date_join }}</td>
+                      <td>{{ staff.comment }}</td>
+
+                  </tr>
+               {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+       <nav aria-label="...">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="false">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">{{ num }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-disabled="true">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock content %}

@@ -14,3 +14,4 @@ class PersonalState(StatesGroup):
     additions = State()
     confirm = State()
 
+
