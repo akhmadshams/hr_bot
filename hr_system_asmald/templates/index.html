@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ count_staff }}</h3>
+
+                <p>Jami hodimlar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="{% url 'staffs' %}" class="small-box-footer">Batafsil<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ staff_true }}</h3>
+
+                <p>Hozirda ishlayotganlar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="{% url 'active_staff' %}" class="small-box-footer">Batafsil<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ staff_false }}</h3>
+
+                <p>Ishdan ketganalar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="{% url 'false_staff' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ count_anketa }}</h3>
+
+                <p>Qabul qilingan arizalar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="{% url 'anketa' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ count_rezerv }}</h3>
+
+                <p>Zahiradagilar soni</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{% url 'rezervs' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ count_suhbat }}</h3>
+
+                <p>Suhbatga chaqirilganlar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{% url 'select' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ count_bday }}</h3>
+
+                <p>Bugingi tug'ilgan kunlar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{% url 'today_bithday' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ count_weekly_b }}</h3>
+
+                <p>Hafta ichidagi tug'ilgan kunlar</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{% url 'weekly_birthday' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <section class="col-lg-12 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card">
+                <div class="card-header">
+                <div>
+</div>
+</div>
+
+<div class="col-sm-10">
+<canvas id="myChart" width="200" height="100"></canvas>
+<div>
+
+<script type="text/javascript">
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [{% for gender in gender_list %} '{{ gender }}', {% endfor %}],
+            datasets: [{
+                label:'Gender',
+
+                data: [{% for gender in gender_number %} '{{ gender }}', {% endfor %}],
+                backgroundColor:[
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(151, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'gree',
+                'yellow',
+                ],
+
+                borderColor: [
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+
+                ],
+
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+</script>
+                    </div>
+
+                </div>
+            </div>
+
+
+              <div class="card">
+                <div class="card-header">
+                <div>
+</div>
+</div>
+
+
+<div class="col-sm-10">
+<canvas id="myChart1" width="200" height="100"></canvas>
+<div>
+
+<script type="text/javascript">
+    var ctx = document.getElementById('myChart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for chart in chart_list %} '{{ chart }}', {% endfor %}],
+            datasets: [{
+                label:'Info',
+
+                data: [{% for chart in chart_number %} '{{ chart }}', {% endfor %}],
+                backgroundColor:[
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(151, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'gree',
+                'yellow',
+                ],
+
+                borderColor: [
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+
+                ],
+
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+</script>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.card -->
+
+            <!-- DIRECT CHAT -->
+            <div class="card direct-chat direct-chat-primary">
+              <div class="card-header">
+                <h3 class="card-title">Barchaga habar yuborish</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <form  method="post" action="{% url 'send_message' %}">
+                   {% csrf_token %}
+                  <div class="input-group">
+                    <input type="text" name="habar" placeholder="Type Message ..." class="form-control">
+                    <span class="input-group-append">
+                      <input type="submit" value="Yuborish" class="btn btn-success float-right">
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card-footer-->
+            </div>
+            <!--/.direct-chat -->
+
+            <!-- TO DO List -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                  To Do List
+                </h3>
+
+                <div class="card-tools">
+                 <ul class="pagination">
+                      {% if page_obj.has_previous %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="false">«</a>
+                          </li>
+                      {% else %}
+                          <li class="page-item disabled">
+                              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">«</a>
+                          </li>
+                      {% endif %}
+
+                      {% for num in page_obj.paginator.page_range %}
+                          {% if page_obj.number == num %}
+                              <li class="page-item active" aria-current="page">
+                                  <a class="page-link" href="#">{{ num }}</a>
+                              </li>
+                          {% else %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                              </li>
+                          {% endif %}
+                      {% endfor %}
+
+                      {% if page_obj.has_next %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">»</a>
+                          </li>
+                      {% else %}
+                          <li class="page-item disabled">
+                              <a class="page-link" href="#" aria-disabled="true">»</a>
+                          </li>
+                      {% endif %}
+                 </ul>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <ul class="todo-list" data-widget="todo-list">
+                  {% for item in page_obj %}
+                  <li>
+                    <!-- drag handle -->
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+
+                   <div class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo{{ forloop.counter }}" id="todoCheck{{ forloop.counter }}">
+                      <label for="todoCheck{{ forloop.counter }}"></label>
+                   </div>
+
+
+                    <span class="text">{{ item.task }}</span>
+                    <!-- Emphasis label -->
+                    <small class="badge badge-danger"><i class="far fa-clock"></i>{{ item.created_at|date:"F d, Y H:i" }}</small>
+                    <div class="tools">
+                      <a href="{% url 'edit_todo' item.id %}"><i class="fas fa-edit"></i></a>
+                      <a href="{% url 'delete_todo' item.id %}"><i class="fas fa-trash"></i></a>
+                    </div>
+                  </li>
+                  {% endfor %}
+
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a href="{% url 'add_todo' %}"><button type="button" class="btn btn-success float-right"><i class="fas fa-plus"></i> Add item</button></a>
+              </div>
+            </div>
+            <!-- /.card -->
+          </section>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          </section>
+
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+
+
+{% endblock %}
