@@ -261,8 +261,8 @@ async def send_ad_to_all(message: types.Message, state=FSMContext):
 async def get_all_users(message: types.Message):
     today = date.today()
     current_time = today.strftime("%B %d, %Y")
-    users = db.count_users()
-    text = f"Jami foydalanuvchilar soni<b> {users[0]} </b> ta  - <b>{current_time}</b> holatiga"
+    users = await db.count_users()
+    text = f"Jami foydalanuvchilar soni<b> {users} </b> ta  - <b>{current_time}</b> holatiga"
     await message.answer(text)
 
 

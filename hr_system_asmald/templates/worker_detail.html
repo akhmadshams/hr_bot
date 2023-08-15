@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+
+                <h3 class="profile-username text-center">{{ object.full_name }}</h3>
+
+                <p class="text-muted text-center">{{ object.position }}</p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Shartnoma raqami</b> <a class="float-right">{{ object.contract_id }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>F.I.SH</b> <a class="float-right">{{ object.full_name }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Tug'ilgan sana</b> <a class="float-right">{{ object.b_date }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Tel raqami</b> <a class="float-right">{{ object.phone }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Manzil</b> <a class="float-right">{{ object.address }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Department</b> <a class="float-right">{{ object.department }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Position</b> <a class="float-right">{{ object.position }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Jinsi</b> <a class="float-right">{{ object.gender }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Ishga qabul sanasi</b> <a class="float-right">{{ object.date_join }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Comment</b> <a class="float-right">{{ object.comment }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Status</b> <a class="float-right">{{ object.status }}</a>
+                  </li>
+                </ul>
+                <a href="{% url 'staffs' %}" class="btn btn-primary btn-block"><b>Qaytish</b></a>
+              </div>
+</div>
+
+</div>
+
+
+{% endblock content %}

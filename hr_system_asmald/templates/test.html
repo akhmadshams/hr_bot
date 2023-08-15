@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anketa</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'update_select' %}">
+        {% csrf_token %}
+        <label for="select">Select:</label>
+        <select id="select" name="select">
+            <option value="true" {% if anketa.select %}selected{% endif %}>True</option>
+            <option value="false" {% if not anketa.select %}selected{% endif %}>False</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

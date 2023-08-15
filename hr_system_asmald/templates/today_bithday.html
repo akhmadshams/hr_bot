@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Bugungi tug'ilgan kunlar</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th style="width: 12%">
+                          F.I.SH
+                      </th>
+                      <th style="width: 12%">
+                          Tug'ilgan sana
+                      </th>
+                      <th style="width: 12%">
+                          Tel raqami
+                      </th>
+                      <th>
+                          Manzil
+                      </th>
+                      <th style="width: 12%" class="text-center">
+                          Bo'lim
+                      </th>
+                      <th style="width: 12%" class="text-center">
+                          Positsiya
+                      </th>
+                      <th style="width: 12%" class="text-center">
+                          Ishga qabul vaqti
+                      </th>
+                      <th style="width: 16%" class="text-center">
+                          Comment
+                      </th>
+
+                  </tr>
+              </thead>
+              <tbody>
+              {% for staff in staffs %}
+                  <tr>
+                      <td>{{ staff.full_name }}</td>
+                      <td>{{ staff.b_date}}</td>
+                      <td>{{ staff.phone }}</td>
+                      <td>{{ staff.address }}</td>
+                      <td>{{ staff.department }}</td>
+                      <td>{{ staff.position }}</td>
+                      <td>{{ staff.date_join }}</td>
+                      <td>{{ staff.comment }}</td>
+
+
+<!--                      <td class="project-actions text-right">-->
+<!--                          <span class="btn-group">-->
+<!--                                <a class="btn btn-primary btn-sm" href="#">-->
+<!--                                    <i class="fas fa-folder"></i>-->
+<!--                                    View-->
+<!--                                </a>-->
+<!--                                <a class="btn btn-info btn-sm" href="{% url 'edit_staff' staff_id=staff.id %}">-->
+<!--                                    <i class="fas fa-pencil-alt"></i>-->
+<!--                                    Edit-->
+<!--                                </a>-->
+<!--                            </span>-->
+<!--                      </td>-->
+                  </tr>
+               {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock content %}
